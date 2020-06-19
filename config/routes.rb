@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :projects, only: %i[index]
+  resources :projects, only: [:index] do
+    resources :todos, only: [:update]
+  end
 
-  resources :todos
+  resources :todos, only: [:create]
+
+  root 'projects#index'
 end

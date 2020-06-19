@@ -1,7 +1,6 @@
 class TodosController < ApplicationController
   before_action :set_todo, only: [:update]
 
-  # POST /todos
   def create
     @todo = Todo.new(todo_params)
 
@@ -12,9 +11,10 @@ class TodosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /todos/1
   def update
-    if @todo.update(todo_params)
+    @todo = Todo.update(params[:project_id], :complete => !params[:complete])
+
+    if @todo
       render json: @todo
     else
       render json: @todo.errors, status: :unprocessable_entity
